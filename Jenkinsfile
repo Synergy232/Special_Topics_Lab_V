@@ -2,12 +2,35 @@
 node {
   stage('checkout sources') {
         // You should change this to be the appropriate thing
-        git url: 'https://github.com/jschmersal-cscc/special-topics-labs-quality'
+        git url: 'https://github.com/Synergy232/Special_Topics_Lab_V'
   }
 
   stage('Build') {
-    // you should build this repo with a maven build step here
+    withMaven (maven: 'maven3') {
+              sh "mvn package"
+            }
     echo "hello"
   }
-  // you should add a test report here
+  pipeline {
+      agent any
+      stages {
+          stage('Build') {
+              steps {
+                  sh './gradlew build'
+              }
+          }
+          stage('Test') {
+              steps {
+                  sh './gradlew check'
+              }
+          }
+      }
+
+      post {
+          always {
+              archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+              junit 'build/reports/**/*.xml'
+          }
+      }
+  }
 }
