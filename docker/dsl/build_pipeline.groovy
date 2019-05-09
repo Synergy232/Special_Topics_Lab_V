@@ -4,7 +4,8 @@ pipelineJob('build-pipeline-job') {
   def repo = 'https://github.com/Synergy232/Special_Topics_Lab_V'
 
   description("Your App Pipeline") 
-  keepDependencies(false) 
+  keepDependencies(false)
+
 
   properties{ 
     githubProjectUrl (repo) 
