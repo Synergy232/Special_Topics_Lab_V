@@ -1,7 +1,7 @@
 pipelineJob('build-pipeline-job') { 
 
   // This is the repo that contains the Jenkinsfile you want to use to define your pipeline
-  def repo = 'https://github.com/Synergy232/Special_Topics_Lab_V'
+  def repo = 'https://github.com/Synergy232/Special_Topics_Lab_V/tree/So_i_can_do_a_pull_request_because_i_messed_up_at_the_start'
 
   description("Your App Pipeline") 
   keepDependencies(false)
