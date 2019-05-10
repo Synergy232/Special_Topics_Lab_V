@@ -1,20 +1,18 @@
+
 node {
-
-    stage('checkout sources') {
+  stage('checkout sources') {
+        // You should change this to be the appropriate thing
         git url: 'https://github.com/Synergy232/Special_Topics_Lab_V'
-    }
+  }
 
-    stage('Artifactory configuration') {
-        // Tool name from Jenkins configuration
-        rtMaven.tool = "Maven-3.3.9"
-        // Set Artifactory repositories for dependencies resolution and artifacts deployment.
-        rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
-        rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
-    }
+  stage('Build') {
+    // you should build this repo with a maven build step here
+    echo "hello"
+    withMaven (maven: 'maven3') {
+              sh "mvn package"
+            }
+  }
 
-    stage('Build') {
-        buildInfo = rtMaven.run pom: 'maven-example/pom.xml', goals: 'clean install'
-    }
-
-
-}
+          //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
+          junit 'target/surefire-reports/*.xml'
+      }
