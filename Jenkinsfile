@@ -15,4 +15,9 @@ node {
 
           //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
           junit 'target/surefire-reports/*.xml'
+
       }
+
+      
+}
+
